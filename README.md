@@ -1,13 +1,10 @@
 # Chatmat
-A chat app written in Go and Next.js
+A chat app written in Rust and Next.js. In this project I want use distributed environment to have a chat application.
 
 ## Tech Stack
 
 ### Back-end
-- Ent
-- Echo
-- Gqlgen
-
+Using rust 
 ### Front-end
 - Nexj.js
 - TailwindCss
