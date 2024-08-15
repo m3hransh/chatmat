@@ -24,7 +24,7 @@
 
         node = pkgs.nodejs_latest;
         # Other utilities commonly used in Rust projects (but not in this example project)
-        others = with pkgs; [ openssl pkg-config ];
+        others = with pkgs; [ openssl pkg-config protobuf grpcurl pnpm ];
 
       in
       {
@@ -35,8 +35,11 @@
 
             # Run when the shell is started up
             shellHook = ''
-               echo "node `${node}/bin/node --version`"
+              echo "node `${node}/bin/node --version`"
               ${localRust}/bin/cargo --version
+              export PROTOBUF_LOCATION="${pkgs.protobuf}"
+              export PROTOC=$PROTOBUF_LOCATION/bin/protoc
+              export PROTOC_INCLUDE=$PROTOBUF_LOCATION/include
             '';
           };
         };

@@ -3,4 +3,15 @@ name = "chatmat-back"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]] # Bin to run the helloWord gRPC server
+name = "helloworld-server"
+path = "src/server.rs"
+
 [dependencies]
+tonic = "0.12"
+prost = "0.13"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+
+[build-dependencies]
+tonic-build = "0.12"
+
