@@ -27,7 +27,7 @@ A chat app written in Rust and Next.js. In this project I want use distributed e
    ```
 ### Run Backend
 ```bash
-$ cargo run --bin helloworld-server
+$ cargo run --bin chatmat-server
 
 # use grpccurl to test
 $ grpcurl -plaintext -import-path ./proto -proto helloworld.proto -d '{"name": "Tonic"}' '[::1]:50051' helloworld.Greeter/SayHello

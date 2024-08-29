@@ -24,14 +24,25 @@
 
         node = pkgs.nodejs_latest;
         # Other utilities commonly used in Rust projects (but not in this example project)
-        others = with pkgs; [ openssl pkg-config protobuf grpcurl pnpm ];
 
       in
       {
-        devShells = {
-          default = pkgs.mkShell {
+        packages ={ 
+          default = pkgs.callPackage ./. { inherit pkgs localRust; };
+        };
+                  
+        devShells.default =
+          with pkgs; mkShell {
             # Packages included in the environment
-            buildInputs = [ node localRust ] ++ others;
+            buildInputs = [
+              node
+              localRust
+              openssl
+              pkg-config
+              protobuf
+              grpcurl
+              pnpm
+            ];
 
             # Run when the shell is started up
             shellHook = ''
@@ -42,6 +53,7 @@
               export PROTOC_INCLUDE=$PROTOBUF_LOCATION/include
             '';
           };
-        };
-      });
+
+      }
+    );
 }
