@@ -1,5 +1,4 @@
-version: '3'
-sesrvices:
+services:
   envoy:
     build:
       context: ./
@@ -7,5 +6,21 @@ sesrvices:
     image: grpcweb/envoy
     ports:
       - "8080:8080"
-    links:
-      - node-server
+      - "9901:9901"
+    networks:
+      - chatmat_net
+    depends_on:
+      - chatmat-back
+
+  chatmat-back:
+    build:
+      context: ./
+      dockerfile: ./chatmat-back/Dockerfile
+    ports:
+      - "9090:9090"
+    networks:
+      - chatmat_net
+
+networks:
+  chatmat_net:
+    driver: bridge

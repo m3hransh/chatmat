@@ -27,10 +27,10 @@
 
       in
       {
-        packages ={ 
+        packages = {
           default = pkgs.callPackage ./. { inherit pkgs localRust; };
         };
-                  
+
         devShells.default =
           with pkgs; mkShell {
             # Packages included in the environment
@@ -41,6 +41,8 @@
               pkg-config
               protobuf
               grpcurl
+              protoc-gen-js
+              protoc-gen-grpc-web
               pnpm
             ];
 
@@ -51,6 +53,7 @@
               export PROTOBUF_LOCATION="${pkgs.protobuf}"
               export PROTOC=$PROTOBUF_LOCATION/bin/protoc
               export PROTOC_INCLUDE=$PROTOBUF_LOCATION/include
+              export PROTOC_JS="${protoc-gen-grpc-web}/bin/protoc-gen-grpc-web"
             '';
           };
 
