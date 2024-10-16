@@ -27,13 +27,22 @@ A chat app written in Rust and Next.js. In this project I want use distributed e
    ```
 ### Run Backend
 ```bash
-$ cargo run --bin chatmat-server
+$ make dev-back
 
 # use grpccurl to test
-$ grpcurl -plaintext -import-path ./proto -proto helloworld.proto -d '{"name": "Tonic"}' '[::1]:8080' helloworld.Greeter/SayHello
+$ grpcurl -plaintext -import-path ./proto -proto helloworld.proto -d '{"name": "Tonic"}' 'localhost:9090' helloworld.Greeter/SayHello
 {
   "message": "Hello Tonic"
 }
+
+
+# run envoy
+make dev-envoy
+
+# send it the message through envoy
+$ grpcurl -plaintext -import-path ./proto -proto helloworld.proto -d '{"name": "Tonic"}' 'localhost:8080' helloworld.Greeter/SayHello
+
+
 ```
 ### Run Front
 ```bash

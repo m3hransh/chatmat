@@ -34,6 +34,7 @@
         devShells.default =
           with pkgs; mkShell {
             # Packages included in the environment
+            packages = [ envoy ];
             buildInputs = [
               node
               localRust

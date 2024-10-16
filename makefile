@@ -8,7 +8,6 @@ PNPM_INSTALL = pnpm install
 PNPM_DEV = pnpm run dev
 PNPM_TEST = pnpm playwright test 
 
-
 # Targets
 .PHONY: all build-front build-back clean dev-front dev-back test-front test-back help
 
@@ -26,8 +25,11 @@ clean: ## Cleans up generated files and stops Docker containers
 proto: ## update the proto file in front
 	protoc -I=proto helloworld.proto  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:chatmat-front/src/proto --js_out=import_style=commonjs:chatmat-front/src/proto
 
-setup-back: ## Runs the backend in development mode
-	docker compose up -d
+dev-back: ## Runs the backend in development mode
+	cd $(BACKEND_DIR) && cargo run --bin chatmat-server
+
+dev-envoy: ## Run envoy 
+	envoy -c envoy/envoy-dev.yaml
 
 test-front: ## Runs the frontend tests
 	cd $(FRONTEND_DIR) && $(PNPM_TEST)
