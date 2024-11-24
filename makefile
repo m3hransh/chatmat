@@ -31,6 +31,9 @@ dev-back: ## Runs the backend in development mode
 dev-envoy: ## Run envoy 
 	envoy -c envoy/envoy-dev.yaml
 
+dev-front: ## Runs the frontend in development mode
+	cd $(FRONTEND_DIR) && $(PNPM_DEV)
+
 test-front: ## Runs the frontend tests
 	cd $(FRONTEND_DIR) && $(PNPM_TEST)
 
