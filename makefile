@@ -23,7 +23,7 @@ clean: ## Cleans up generated files and stops Docker containers
 	  && docker compose down -v
 
 proto: ## update the proto file in front
-	protoc -I=proto helloworld.proto  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:chatmat-front/src/proto --js_out=import_style=commonjs:chatmat-front/src/proto
+	protoc -I=proto chat.proto  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:chatmat-front/src/proto --js_out=import_style=commonjs:chatmat-front/src/proto
 
 dev-back: ## Runs the backend in development mode
 	cd $(BACKEND_DIR) && cargo run --bin chatmat-server

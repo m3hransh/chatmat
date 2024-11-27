@@ -1,0 +1,90 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+package chat;
+
+service Chat {
+  rpc RegisterUser(UserRegisterReq) returns (UserRegisterRes) {}
+  rpc GetUser(UserInfo) returns (User) {}
+  rpc CreateChatGroup(ChatGroupCreate) returns (ChatGroupCreateResult) {}
+  rpc GetChatGroup(ChatInfo) returns (ChatGroup) {}
+  rpc SendMessage(messageSend) returns (MessageResult) {}
+  rpc ListenMessages(UserInfo) returns (stream ChatMessage) {}
+}
+
+
+message ChatMessage {
+  string message = 1;
+  string uuid = 2;
+  User sender = 3;
+  ChatGroup chat = 4;
+  google.protobuf.Timestamp createdAt = 5;
+  google.protobuf.Timestamp deletedAt = 6;
+  repeated User seenBy = 7;
+}
+
+message messageSend {
+  string message = 1;
+  User sender = 3;
+  ChatGroup chat = 4;
+}
+
+message MessageResult {
+  oneof result {
+    ChatMessage message = 1;
+    Error error = 2;
+  }
+}
+
+message UserRegisterReq{
+  string name = 2;
+  string email = 3;
+  string picture = 4;
+  }
+
+message UserRegisterRes {
+  oneof result {
+    User user = 1;
+    Error error = 2;
+  }
+}
+message UserInfo {
+  string id = 1;
+}
+
+message Error {
+  string message = 1;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string picture = 4;
+  google.protobuf.Timestamp createdAt = 5;
+  google.protobuf.Timestamp deletedAt = 6;
+}
+
+message ChatGroup {
+  string id = 1;
+  string name = 2;
+  string picture = 3;
+  repeated User members = 4;
+  google.protobuf.Timestamp createdAt = 5;
+  google.protobuf.Timestamp deletedAt = 6;
+}
+
+message ChatGroupCreate {
+  string name = 1;
+  string picture = 2;
+  repeated User members = 3;
+}
+
+message ChatInfo {
+  string id = 1;
+}
+message ChatGroupCreateResult {
+  oneof result {
+    ChatGroup chatGroup = 1;
+    Error error = 2;
+  }
+}
